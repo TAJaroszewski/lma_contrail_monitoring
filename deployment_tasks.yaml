@@ -1,0 +1,38 @@
+# These tasks will be merged into deployment graph. Here you
+# can specify new tasks for any roles, even built-in ones.
+
+# Main task for deployment of extension - 'Do it all'
+- id: fuel-plugin-lma-contrail-monitoring-sh
+  type: shell
+  role: '*'
+  requires: [lma-alerting-nagios, lma-alerting-nagios-dashboard-url]
+  required_for: [post_deployment_end]
+  parameters:
+    cmd: sh deploy.sh
+  reexecute_on:
+    - deploy_changes
+
+#- id: fuel-plugin-lma-contrail-monitoring-hiera
+#  type: puppet
+#  role: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db', 'compute','infrastructure_alerting', 'primary-infrastructure_alerting']
+#  requires: [fuel-plugin-lma-contrail-monitoring-sh]
+#  required_for: [post_deployment_end]
+#  parameters:
+#    puppet_manifest: "puppet/manifests/base.pp"
+#    puppet_modules: "puppet/modules"
+#    timeout: 240
+#  reexecute_on:
+#    - deploy_changes
+
+#- id: fuel-plugin-lma-contrail-monitoring-init
+#  type: puppet
+#  role: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db', 'compute', 'infrastructure_alerting', 'primary-infrastructure_alerting']
+#  requires: [fuel-plugin-lma-contrail-monitoring-hiera]
+#  required_for: [post_deployment_end]
+#  parameters:
+#    puppet_manifest: "puppet/manifests/init.pp"
+#    puppet_modules: "puppet/modules"
+#    timeout: 4800
+#  reexecute_on:
+#    - deploy_changes
+

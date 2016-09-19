@@ -1,0 +1,58 @@
+<LoadPlugin tcpconns>
+  Globals false
+</LoadPlugin>
+
+
+<Plugin tcpconns>
+    #netstat -ntpl |grep -i list | awk '{print$4}' | awk -F ':' '{print$(NF)}'| sort -u | while read r1; do echo ListenPort \"$r1\"; done
+    ListeningPorts false
+
+    ListenPort "179"
+    ListenPort "2181"
+    ListenPort "22"
+    ListenPort "25"
+    ListenPort "3000"
+    ListenPort "3002"
+    ListenPort "3888"
+    ListenPort "42694"
+    ListenPort "4352"
+    ListenPort "4353"
+    ListenPort "51143"
+    ListenPort "5269"
+    ListenPort "53"
+    ListenPort "5567"
+    ListenPort "57038"
+    ListenPort "5920
+    ListenPort "5921"
+    ListenPort "5995"
+    ListenPort "5997"
+    ListenPort "6379"
+    ListenPort "7000"
+    ListenPort "7199"
+    ListenPort "8080"
+    ListenPort "8083"
+    ListenPort "8084"
+    ListenPort "8086"
+    ListenPort "8089"
+    ListenPort "8090"
+    ListenPort "8091"
+    ListenPort "8092"
+    ListenPort "8093"
+    ListenPort "8094"
+    ListenPort "8095"
+    ListenPort "8100"
+    ListenPort "8101"
+    ListenPort "8103"
+    ListenPort "8104"
+    ListenPort "8143"
+    ListenPort "8325"
+    ListenPort "8443"
+    ListenPort "8444"
+    ListenPort "9042"
+    ListenPort "9081"
+    ListenPort "9092"
+    ListenPort "9100"
+    ListenPort "9110"
+    ListenPort "9160"
+
+</Plugin>

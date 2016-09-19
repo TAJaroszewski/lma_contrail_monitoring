@@ -1,0 +1,11 @@
+<LoadPlugin python>
+    Globals true
+</LoadPlugin>
+
+<Plugin python>
+<% @module_dirs.sort.each do |path| -%>
+  ModulePath "<%= path %>"
+<% end -%>
+  LogTraces false
+  Interactive false
+

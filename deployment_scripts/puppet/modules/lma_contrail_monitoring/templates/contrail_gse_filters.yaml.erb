@@ -1,0 +1,49 @@
+---
+lma_collector_contrail:
+  gse_cluster_service:
+    input_message_types:
+      - afd_service_metric
+    aggregator_flag: true
+    # the field in the input messages to identify the cluster
+    cluster_field: service
+    # the field in the input messages to identify the cluster's member
+    member_field: source
+    output_message_type: gse_service_cluster_metric
+    output_metric_name: cluster_service_status
+    interval: 10
+    warm_up_period: 20
+    clusters:
+      contrail-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - backends
+          - endpoint
+          - http_errors
+      contrail-logs:
+        policy: highest_severity
+        group_by: hostname
+        members:
+          - error
+
+
+  gse_cluster_node:
+    input_message_types:
+      - afd_node_metric
+    aggregator_flag: true
+    # the field in the input messages to identify the cluster
+    cluster_field: node_role
+    # the field in the input messages to identify the cluster's member
+    member_field: source
+    output_message_type: gse_node_cluster_metric
+    output_metric_name: cluster_node_status
+    interval: 10
+    warm_up_period: 80
+    clusters:
+      contrail-config:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - contrail-api
+          - contrail-logs
+

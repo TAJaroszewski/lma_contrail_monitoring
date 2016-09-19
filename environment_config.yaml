@@ -1,0 +1,7 @@
+attributes:
+  mx_snmp_community:
+    value: 'public'
+    label: 'SNMP community string for MX Routers'
+    description: 'SNMP Community used for MX Routers'
+    weight: 40
+    type: "text"

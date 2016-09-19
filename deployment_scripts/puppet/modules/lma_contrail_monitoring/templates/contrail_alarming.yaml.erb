@@ -1,0 +1,1839 @@
+---
+lma_collector_contrail:
+  alarms:
+    - name: 'contrail-cpu-critical'
+      description: 'The CPU usage is too high (contrail node)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: cpu_idle
+            relational_operator: '<='
+            threshold: 5
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'contrail-cpu-warning'
+      description: 'The CPU usage is too high (contrail node)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: cpu_idle
+            relational_operator: '<='
+            threshold: 15
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'contrail-load-midterm-critical'
+      description: 'The load is too high (load_midterm)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: load_midterm
+            relational_operator: '>='
+            threshold: 20
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'contrail-load-midterm-warning'
+      description: 'The load is too high (load-midterm)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: load_midterm
+            relational_operator: '>='
+            threshold: 5
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'contrail-load-shortterm-warning'
+      description: 'The load is too high (load-shortterm)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: load_shortterm
+            relational_operator: '>='
+            threshold: 5
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'contrail-load-longterm-warning'
+      description: 'The load is too high (load-longterm)'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: load_longterm
+            relational_operator: '>='
+            threshold: 5
+            window: 120
+            periods: 0
+            function: avg
+
+    - name: 'root-fs-critical'
+      description: "The root filesystem's free space is too low"
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        rules:
+          - metric: fs_space_percent_free
+            fields:
+              fs: '/'
+            relational_operator: '<'
+            threshold: 2
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'root-fs-warning'
+      description: "The root filesystem's free space is low"
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        rules:
+          - metric: fs_space_percent_free
+            fields:
+              fs: '/'
+            relational_operator: '<'
+            threshold: 5
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'cassandradb-fs-critical'
+      description: "The root filesystem's free space is too low"
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        rules:
+          - metric: fs_space_percent_free
+            fields:
+              fs: '/var/lib/contrail_db'
+            relational_operator: '<'
+            threshold: 5
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'cassandradb-fs-warning'
+      description: "The root filesystem's free space is low"
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        rules:
+          - metric: fs_space_percent_free
+            fields:
+              fs: '/var/lib/contrail_db'
+            relational_operator: '<'
+            threshold: 15
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-memory-limit-critical'
+      description: 'Contrail has reached the memory threshold. All producers are blocked'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_used
+            relational_operator: '<='
+            threshold: 1024
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-memory-limit-warning'
+      description: 'Contrail is getting close to the memory threshold'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_used
+            relational_operator: '<='
+            threshold: 1048576000 # 1GB
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail_db-memory-limit-critical'
+      description: 'Contrail has reached the memory threshold. All producers are blocked'
+      severity: 'critical'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_used
+            relational_operator: '<='
+            threshold: 1048576000 # 1GB
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail_db-memory-limit-warning'
+      description: 'Contrail is getting close to the memory threshold'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_used
+            relational_operator: '<='
+            threshold: 3048576000 # 3GB
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-swap-limit-warning'
+      description: 'Contrail node is getting closer to the swap threshold'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_free
+            relational_operator: '<='
+            threshold: 3048576000 # 3GB
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-swap-limit-critical'
+      description: 'Contrail node is getting closer to the swap threshold'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: memory_free
+            relational_operator: '<='
+            threshold: 1048576000 # 1GB
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-if_errors_rx'
+      description: 'One of interfaces is having a log of RX errors'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: if_errors_rx
+            relational_operator: '>='
+            threshold: 1000
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-if_errors_tx'
+      description: 'One of interfaces is having a log of TX errors'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: if_errors_tx
+            relational_operator: '>='
+            threshold: 1000
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-processes-count-running'
+      description: 'Node is running more than 256 processes'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: processes_count
+            fields:
+                state: 'running'
+            relational_operator: '>='
+            threshold: 256
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-processes-count-zombies'
+      description: 'There are >= 25 zombie processes on node'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: processes_count
+            fields:
+                state: 'zombies'
+            relational_operator: '>='
+            threshold: 25
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'contrail-processes-count-blocked'
+      description: 'There is at least one blocker process on node'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: processes_count
+            fields:
+                state: 'blocked'
+            relational_operator: '>='
+            threshold: 1
+            window: 20
+            periods: 0
+            function: min
+
+    - name: 'system-uptime'
+      description: 'The uptime is too low; System was restarted'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: system-uptime
+            relational_operator: '<='
+            threshold: 1000
+            window: 120
+            periods: 0
+            function: avg
+
+## Contrail Processes
+    - name: 'contrail-control'
+      description: 'There is no contrail-control process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-control'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-control-nodemgr'
+      description: 'There is no contrail-control-nodemgr process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-control-nodemgr'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-dns'
+      description: 'There is no contrail-dns process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-dns'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-named'
+      description: 'There is no contrail-named process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-named'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-alarm-gen'
+      description: 'There is no contrail-alarm-gen process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-alarm-gen'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-analytics-api'
+      description: 'There is no contrail-analytics-api process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-analytics-api'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-analytics-nodemgr'
+      description: 'There is no contrail-analytics-nodemgr process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-analytics-nodemgr'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-collector'
+      description: 'There is no contrail-collector process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-collector'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-query-engine'
+      description: 'There is no contrail-query-engine process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-query-engine'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-snmp-collector'
+      description: 'There is no contrail-snmp-collector process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-snmp-collector'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-topology'
+      description: 'There is no contrail-topology process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-topology'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-api'
+      description: 'There is no contrail-api process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-api'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-config-nodemgr'
+      description: 'There is no contrail-config-nodemgr process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-config-nodemgr'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-device-manager'
+      description: 'There is no contrail-device-manager process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-device-manager'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-discovery'
+      description: 'There is no contrail-discovery process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-discovery'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-schema'
+      description: 'There is no contrail-schema process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-schema'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-svc-monitor'
+      description: 'There is no contrail-svc-monitor process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-svc-monitor'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'ifmap'
+      description: 'There is no ifmap process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'ifmap'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-webui'
+      description: 'There is no contrail-webui process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-webui'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-webui-middleware'
+      description: 'There is no contrail-webui-middleware process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-webui-middleware'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-database-nodemgr'
+      description: 'There is no contrail-database-nodemgr process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-database-nodemgr'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'kafka'
+      description: 'There is no kafka process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'kafka'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'cassandra'
+      description: 'There is no kafka process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'cassandra'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'zookeeper'
+      description: 'There is no kafka process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'zookeeper'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+# IFMAP
+    - name: 'ifmap-elements-zero'
+      description: 'There are no ifmap elements available'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ifmap-num-elements
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'ifmap-elements-many'
+      description: 'There are too many ifmap elements available'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ifmap-num-elements
+            relational_operator: '=='
+            threshold: 250000
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'ifmap-elements-diff'
+      description: 'Number of IFMap record changed between checks is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ifmap-num-elements
+            relational_operator: '>='
+            threshold: 2500
+            window: 100
+            periods: 0
+            function: diff
+# XMPP
+    - name: 'xmpp-number-of-sessions-lo'
+      description: 'There are no xmpp-number-of-sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: xmpp-number-of-sessions
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'xmpp-number-of-sessions-hi'
+      description: 'There are too many xmpp-number-of-sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: xmpp-number-of-sessions
+            relational_operator: '=='
+            threshold: 500
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'xmpp-number-of-sessions-diff'
+      description: 'Number of xmpp-number-of-sessions changed between checks is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: xmpp-number-of-sessions
+            relational_operator: '>='
+            threshold: 100
+            window: 100
+            periods: 0
+            function: diff
+
+# vRouter's XMPP
+    - name: 'vrouter-xmpp-of-sessions-lo'
+      description: 'There are no vrouter-xmpp sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-xmpp
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-xmpp-of-sessions-hi'
+      description: 'There are too many vrouter-xmpp sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-xmpps
+            relational_operator: '=='
+            threshold: 10
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-xmpp-of-sessions-diff'
+      description: 'Number of vrouter-xmpp changed between checks is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-xmpp
+            relational_operator: '>='
+            threshold: 5
+            window: 100
+            periods: 0
+            function: diff
+
+# vRouter's DNS XMPP
+    - name: 'vrouter-xmpp-dns-of-sessions-lo'
+      description: 'There are no vrouter-dns-xmpp sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-dns-xmpp
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-xmpp-dns-of-sessions-hi'
+      description: 'There are too many vrouter-dns-xmpp sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-dns-xmpps
+            relational_operator: '=='
+            threshold: 10
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-xmpp-dns-of-sessions-diff'
+      description: 'Number of vrouter-dns-xmpp changed between checks is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-dns-xmpp
+            relational_operator: '>='
+            threshold: 5
+            window: 100
+            periods: 0
+            function: diff
+
+# vRouter's LLS
+    - name: 'vrouter-lls-sessions-lo'
+      description: 'There are no vrouter-vrouter-lls sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-lls
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-lls-sessions-hi'
+      description: 'There are too many vrouter-vrouter-lls sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-lls
+            relational_operator: '=='
+            threshold: 10
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'vrouter-lls-of-sessions-diff'
+      description: 'Number of vrouter-vrouter-lls changed between checks is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-lls
+            relational_operator: '>='
+            threshold: 5
+            window: 100
+            periods: 0
+            function: diff
+
+# XMPP-{UP,DOWN}
+    - name: 'xmpp-number-of-sessions-up'
+      description: 'There are no active XMPP sessions '
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: xmpp-number-of-sessions-up
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'xmpp-number-of-sessions-down'
+      description: 'There are inactive XMPP sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: xmpp-number-of-sessions-down
+            relational_operator: '>='
+            threshold: 1
+            window: 100
+            periods: 0
+            function: min
+
+# BGP
+    - name: 'bgp-session-number'
+      description: 'There are no BGP sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: bgp-session-number
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'bgp-session-number-up'
+      description: 'There are no active BGP sessions '
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: bgp-session-number-up
+            relational_operator: '=='
+            threshold: 0
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'bgp-session-number-down'
+      description: 'There are inactive BGP sessions'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: bgp-session-number-down
+            relational_operator: '>='
+            threshold: 1
+            window: 100
+            periods: 0
+            function: min
+
+# vRouter Openedsockets
+    - name: 'vrouter-openedsockets'
+      description: 'There are too many sockets opened for vRouter'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-openedsockets
+            relational_operator: '>='
+            threshold: 0
+            window: 120
+            periods: 0
+            function: min
+
+# vRouter Flows Active
+    - name: 'vrouter-flows-active'
+      description: 'There are too many vrouter flows'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-active
+            relational_operator: '>='
+            threshold: 1200
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-zero-active'
+      description: 'There are no active flows'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-active
+            relational_operator: '=='
+            threshold: 0
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-created'
+      description: 'There are too many vrouter flows created'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-created
+            relational_operator: '>='
+            threshold: 1000
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-discard'
+      description: 'There are too many vrouter flows: discards'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-discard
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-drop'
+      description: 'There are too many vrouter flows: drops'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-drop
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-frag-err'
+      description: 'There are too many vrouter flows: fragment errors'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-frag-err
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-invalid-nh'
+      description: 'There are too many vrouter flows: invalid_nh'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-invalid-nh
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+
+    - name: 'vrouter-flows-composite-invalid-interface'
+      description: 'There are too many vrouter flows: composite_invalid_interface'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-composite-invalid-interface
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-invalid-label'
+      description: 'There are too many vrouter flows: invalid_label'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-invalid-label
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flows-flow-queue-limit-exceeded'
+      description: 'There are too many vrouter flows: flow_queue_limit_exceeded'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-flow-queue-limit-exceeded
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'vrouter-flow-full'
+      description: 'There are too many vrouter flows: flow_table_full'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: vrouter-flows-flow-table-full
+            relational_operator: '>='
+            threshold: 100
+            window: 120
+            periods: 0
+            function: min
+
+## Check API
+
+    # Contrail WebUI
+    - name: 'check-api-contrail-8080-hi'
+      description: 'Request took too much time: check-api-contrail-8080'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8080
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8080-err'
+      description: 'Request error: check-api-contrail-8080'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8080
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8143-hi'
+      description: 'Request took too much time: check-api-contrail-8143'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8143
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8143-err'
+      description: 'Request error: check-api-contrail-8143'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8143
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail API
+    - name: 'check-api-contrail-8084-hi'
+      description: 'Request took too much time: check-api-contrail-8084'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8084
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8084-err'
+      description: 'Request error: check-api-contrail-8084'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8084
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9100-hi'
+      description: 'Request took too much time: check-api-contrail-9100'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9100
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9100-err'
+      description: 'Request error: check-api-contrail-9100'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9100
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail Discovery
+    - name: 'check-api-contrail-9110-hi'
+      description: 'Request took too much time: check-api-contrail-9110'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9110
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9110-err'
+      description: 'Request error: check-api-contrail-9110'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9110
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-5997-hi'
+      description: 'Request took too much time: check-api-contrail-5997'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-5997
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-5997-err'
+      description: 'Request error: check-api-contrail-5997'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-5997
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail API
+    - name: 'check-api-contrail-8084-hi'
+      description: 'Request took too much time: check-api-contrail-8084'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8084
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8084-err'
+      description: 'Request error: check-api-contrail-8084'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8084
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9100-hi'
+      description: 'Request took too much time: check-api-contrail-9100'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9100
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9100-err'
+      description: 'Request error: check-api-contrail-9100'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9100
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail Collector
+    - name: 'check-api-contrail-8086-hi'
+      description: 'Request took too much time: check-api-contrail-8086'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8086
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8086-err'
+      description: 'Request error: check-api-contrail-8086'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8086
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8089-hi'
+      description: 'Request took too much time: check-api-contrail-8089'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8089
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8089-err'
+      description: 'Request error: check-api-contrail-8089'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8089
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail Analytics
+    - name: 'check-api-contrail-9081-hi'
+      description: 'Request took too much time: check-api-contrail-9081'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9081
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-9081-err'
+      description: 'Request error: check-api-contrail-9081'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-9081
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8090-hi'
+      description: 'Request took too much time: check-api-contrail-8090'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8090
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8090-err'
+      description: 'Request error: check-api-contrail-8090'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8090
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    # Contrail Control
+    - name: 'check-api-contrail-8083-hi'
+      description: 'Request took too much time: check-api-contrail-8083'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8083
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-8083-err'
+      description: 'Request error: check-api-contrail-8083'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-8083
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-5269-hi'
+      description: 'Request took too much time: check-api-contrail-5269'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-5269
+            relational_operator: '>='
+            threshold: 10
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'check-api-contrail-5269-err'
+      description: 'Request error: check-api-contrail-5269'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: check-api-contrail-5269
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+    - name: 'ping_avg_gateway'
+      description: 'One of Contrail GW could not be reached'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ping_avg_gateway
+            relational_operator: '<='
+            threshold: -1
+            window: 120
+            periods: 0
+            function: min
+
+## Various Services
+    - name: 'ntpd'
+      description: 'There is no ntpd process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'ntpd'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'libvirtd'
+      description: 'There is no libvirtd process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'libvirtd'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'nova-compute'
+      description: 'There is no nova-compute process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'nova-compute'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'haproxy'
+      description: 'There is no haproxy process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'haproxy'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-vrouter-agent'
+      description: 'There is no contrail-vrouter-agent process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-vrouter-agent'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'contrail-vrouter-nodemgr'
+      description: 'There is no contrail-vrouter-nodemgr process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'contrail-nodemgr'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'neutron-server'
+      description: 'There is no neutron-server process running'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: lma_components_processes
+            fields:
+                service: 'neutron-server'
+            relational_operator: '=='
+            threshold: 0
+            window: 60
+            periods: 0
+            function: min
+
+    - name: 'ntp-time-drift-hi'
+      description: 'NTP Drift time is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ntp-time-drift
+            relational_operator: '>='
+            threshold: 2500
+            window: 100
+            periods: 0
+            function: min
+
+    - name: 'ntp-time-drift-lo'
+      description: 'NTP Drift time is too high'
+      severity: 'warning'
+      enabled: 'true'
+      trigger:
+        logical_operator: 'or'
+        rules:
+          - metric: ntp-time-drift
+            relational_operator: '<='
+            threshold: -2500
+            window: 100
+            periods: 0
+            function: min
+
+## Mapping
+  service_cluster_roles:
+      contrail-api: ['primary-contrail-config', 'contrail-config']
+      contrail-logs: ['primary-contrail-config ', 'contrail-config']
+
+  service_cluster_alarms:
+      contrail-named:
+        process: ['contrail-named']
+
+  node_cluster_roles:
+      node: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db']
+      contrail-config: ['primary-contrail-config', 'contrail-config']
+      contrail-control: ['primary-contrail-control', 'contrail-control']
+      contrail-db: ['primary-contrail-db', 'contrail-db']
+      #controller: ['primary-controller', 'controller']
+      hypervisor: ['compute']
+
+  node_cluster_alarms:
+      node:
+        cpu: ['contrail-cpu-critical', 'contrail-cpu-warning']
+        memory: ['contrail-memory-limit-critical', 'contrail-memory-limit-warning']
+        uptime: ['system-uptime']
+        root-fs: ['root-fs-critical', 'root-fs-warning']
+        swap: ['contrail-swap-limit-warning', 'contrail-swap-limit-critical']
+        net-if-errors: ['contrail-if_errors_rx', 'contrail-if_errors_tx']
+        processes: ['contrail-processes-count-running', 'contrail-processes-count-zombies', 'contrail-processes-count-blocked']
+        load: ['contrail-load-midterm-critical', 'contrail-load-midterm-warning', contrail-load-shortterm-warning, contrail-load-longterm-warning]
+        ntpd: ['ntpd']
+        ntpd-drift: ['ntp-time-drift-hi', 'ntp-time-drift-lo']
+        ping-gw: ['ping_avg_gateway']
+
+      contrail-control:
+        contrail-control: ['contrail-control']
+        contrail-control-nodemgr: ['contrail-control-nodemgr']
+        contrail-dns: ['contrail-dns']
+        contrail-named: ['contrail-named']
+        contrail-webui: ['contrail-webui']
+        contrail-webui-middleware: ['contrail-webui-middleware']
+        contrail-database-nodemgr: ['contrail-database-nodemgr']
+        kafka: ['kafka']
+        haproxy: ['haproxy']
+        check-api-contrail-8080: ['check-api-contrail-8080-hi', 'check-api-contrail-8080-err']
+        check-api-contrail-8143: ['check-api-contrail-8143-hi', 'check-api-contrail-8143-err']
+        check-api-contrail-8083: ['check-api-contrail-8083-hi', 'check-api-contrail-8083-err']
+
+      contrail-config:
+        contrail-alarm-gen: ['contrail-alarm-gen']
+        contrail-analytics-api: ['contrail-analytics-api']
+        contrail-analytics-nodemgr: ['contrail-analytics-nodemgr']
+        contrail-collector: ['contrail-collector']
+        contrail-query-engine: ['contrail-query-engine']
+        contrail-snmp-collector: ['contrail-snmp-collector']
+        contrail-topology: ['contrail-topology']
+        contrail-api: ['contrail-api']
+        contrail-config-nodemgr: ['contrail-config-nodemgr']
+        contrail-device-manager: ['contrail-device-manager']
+        contrail-discovery: ['contrail-discovery']
+        contrail-schema: ['contrail-schema']
+        contrail-svc-monitor: ['contrail-svc-monitor']
+        ifmap: ['ifmap']
+        ifmap-elements: ['ifmap-elements-many', 'ifmap-elements-zero', 'ifmap-elements-diff']
+        xmpp-sessions: ['xmpp-number-of-sessions-hi', 'xmpp-number-of-sessions-lo', 'xmpp-number-of-sessions-diff']
+        xmpp-sessions-status: ['xmpp-number-of-sessions-down', 'xmpp-number-of-sessions-up']
+        bgp-sessions: ['bgp-session-number', 'bgp-session-number-up', 'bgp-session-number-down']
+        check-api-contrail-8084: ['check-api-contrail-8084-hi', 'check-api-contrail-8084-err']
+        check-api-contrail-9100: ['check-api-contrail-9100-hi', 'check-api-contrail-9100-err']
+        check-api-contrail-9110: ['check-api-contrail-9110-hi', 'check-api-contrail-9110-err']
+        check-api-contrail-5997: ['check-api-contrail-5997-hi', 'check-api-contrail-5997-err']
+        check-api-contrail-8084: ['check-api-contrail-8084-hi', 'check-api-contrail-8084-err']
+        check-api-contrail-9100: ['check-api-contrail-9100-hi', 'check-api-contrail-9100-err']
+        check-api-contrail-8089: ['check-api-contrail-8089-hi', 'check-api-contrail-8089-err']
+        check-api-contrail-9081: ['check-api-contrail-9081-hi', 'check-api-contrail-9081-err']
+        check-api-contrail-8090: ['check-api-contrail-8090-hi', 'check-api-contrail-8090-err']
+
+      contrail-db:
+        contraildb-fs: ['cassandradb-fs-critical', 'cassandradb-fs-warning']
+        cassandra: ['cassandra']
+        zookeeper: ['zookeeper']
+
+      controller:
+        neutron-server: ['neutron-server']
+        memory: ['contrail-memory-limit-critical', 'contrail-memory-limit-warning']
+        uptime: ['system-uptime']
+        swap: ['contrail-swap-limit-warning', 'contrail-swap-limit-critical']
+        net-if-errors: ['contrail-if_errors_rx', 'contrail-if_errors_tx']
+        processes: ['contrail-processes-count-running', 'contrail-processes-count-zombies', 'contrail-processes-count-blocked']
+        load: ['contrail-load-midterm-critical', 'contrail-load-midterm-warning', contrail-load-shortterm-warning, contrail-load-longterm-warning]
+        ntpd: ['ntpd']
+        ntpd-drift: ['ntp-time-drift-hi', 'ntp-time-drift-lo']
+        ping-gw: ['ping_avg_gateway']
+
+      hypervisor:
+        cpu: ['contrail-cpu-critical', 'contrail-cpu-warning']
+        memory: ['contrail-memory-limit-critical', 'contrail-memory-limit-warning']
+        uptime: ['system-uptime']
+        swap: ['contrail-swap-limit-warning', 'contrail-swap-limit-critical']
+        net-if-errors: ['contrail-if_errors_rx', 'contrail-if_errors_tx']
+        processes: ['contrail-processes-count-running', 'contrail-processes-count-zombies', 'contrail-processes-count-blocked']
+        load: ['contrail-load-midterm-critical', 'contrail-load-midterm-warning', contrail-load-shortterm-warning, contrail-load-longterm-warning]
+        ntpd: ['ntpd']
+        ntpd-drift: ['ntp-time-drift-hi', 'ntp-time-drift-lo']
+        libvirtd: ['libvirtd']
+        nova-compute: ['nova-compute']
+        haproxy: ['haproxy']
+        contrail-vrouter-agent: ['contrail-vrouter-agent']
+        contrail-vrouter-nodemgr: ['contrail-vrouter-nodemgr']
+        xmpp-sessions: ['vrouter-xmpp-of-sessions-hi', 'vrouter-xmpp-of-sessions-lo', 'vrouter-xmpp-of-sessions-diff']
+        xmpp-dns-sessions: ['vrouter-xmpp-dns-of-sessions-hi', 'vrouter-xmpp-dns-of-sessions-lo', 'vrouter-xmpp-dns-of-sessions-diff']
+        vrouter-lls: ['vrouter-lls-sessions-lo', 'vrouter-lls-sessions-hi', 'vrouter-lls-sessions-diff']
+        vrouter-openedsockets: ['vrouter-openedsockets']
+        vrouter-flows-active: ['vrouter-flows-active', 'vrouter-flows-zero-active']
+        vrouter-flows-created: ['vrouter-flows-created']
+        vrouter-flows-discard: ['vrouter-flows-discard']
+        vrouter-flows-drop: ['vrouter-flows-drop']
+        vrouter-flows-frag-err: ['vrouter-flows-frag-err']
+        vrouter-flows-invalid-nh: ['vrouter-flows-invalid-nh']
+        vrouter-flows-composite-invalid-interface: ['vrouter-flows-composite-invalid-interface']
+        vrouter-flows-invalid-label: ['vrouter-flows-invalid-label']
+        vrouter-flows-flow-queue-limit-exceeded: ['vrouter-flows-flow-queue-limit-exceeded']
+        vrouter-flow-full: ['vrouter-flow-full']
+        ping-gw: ['ping_avg_gateway']
