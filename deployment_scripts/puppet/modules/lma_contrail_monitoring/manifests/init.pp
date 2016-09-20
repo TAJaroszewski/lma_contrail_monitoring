@@ -149,6 +149,23 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
     $node_clusters = []
   }
 
+  info "Service Clusters:  $service_clusters"
+  info "Node Clusters:  $node_clusters"
+  info "Cluster IP: $cluster_ip"
+
+  info "Service Cluster Roles: $lma_contrail['service_cluster_roles']"
+  info "Service Cluster Alarms: $lma_contrail['service_cluster_alarms']"
+
+  # Apply new checks into client
+  class { 'fuel_lma_collector::afds':
+    roles                  => hiera('roles'),
+    node_cluster_roles     => $lma_contrail['node_cluster_roles'],
+    service_cluster_roles  => $lma_contrail['service_cluster_roles'],
+    node_cluster_alarms    => $lma_contrail['node_cluster_alarms'],
+    service_cluster_alarms => $lma_contrail['service_cluster_alarms'],
+    alarms                 => $alarms_definitions_contrail
+  }
+
   info "Node Cluster Roles:  $node_cluster_roles"
   info "Node Cluster Alarms: $node_cluster_alarms"
 
@@ -170,25 +187,8 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
       node_cluster_alarms    => $node_cluster_alarms
     }
 
-  } else {
-
-    info "Service Clusters:  $service_clusters"
-    info "Node Clusters:  $node_clusters"
-    info "Cluster IP: $cluster_ip"
-
-    info "Service Cluster Roles: $lma_contrail['service_cluster_roles']"
-    info "Service Cluster Alarms: $lma_contrail['service_cluster_alarms']"
-
-    # Apply new checks into client
-    class { 'fuel_lma_collector::afds':
-      roles                  => hiera('roles'),
-      node_cluster_roles     => $lma_contrail['node_cluster_roles'],
-      service_cluster_roles  => $lma_contrail['service_cluster_roles'],
-      node_cluster_alarms    => $lma_contrail['node_cluster_alarms'],
-      service_cluster_alarms => $lma_contrail['service_cluster_alarms'],
-      alarms                 => $alarms_definitions
-    }
   }
+
 
   # Generate aggregator's /usr/share/lma_collector_modules/gse* files
   if $is_controller_node {
