@@ -1,5 +1,78 @@
 ---
 lma_collector_contrail:
+  gse_policies:
+    # A policy defining that the cluster's status depends on the member with the
+    # highest severity, typically used for a cluster of services.
+    highest_severity:
+      - status: down
+        trigger:
+          logical_operator: or
+          rules:
+            - function: count
+              arguments: [ down ]
+              relational_operator: '>'
+              threshold: 0
+      - status: critical
+        trigger:
+          logical_operator: or
+          rules:
+            - function: count
+              arguments: [ critical ]
+              relational_operator: '>'
+              threshold: 0
+      - status: warning
+        trigger:
+          logical_operator: or
+          rules:
+            - function: count
+              arguments: [ warning ]
+              relational_operator: '>'
+              threshold: 0
+      - status: okay
+        trigger:
+          logical_operator: or
+          rules:
+            - function: count
+              arguments: [ okay ]
+              relational_operator: '>'
+              threshold: 0
+      - status: unknown
+
+    # A policy which is typically used for clusters managed by Pacemaker
+    # with the no-quorum-policy set to 'stop'.
+    majority_of_members:
+      - status: down
+        trigger:
+          logical_operator: or
+          rules:
+            - function: percent
+              arguments: [ down ]
+              relational_operator: '>'
+              threshold: 50
+      - status: critical
+        trigger:
+          logical_operator: and
+          rules:
+            - function: percent
+              arguments: [ down, critical ]
+              relational_operator: '>'
+              threshold: 20
+            - function: percent
+              arguments: [ okay ]
+              relational_operator: '<'
+              threshold: 50
+              function: percent
+      - status: warning
+        trigger:
+          logical_operator: or
+          rules:
+            - function: percent
+              arguments: [ okay ]
+              relational_operator: '<'
+              threshold: 50
+              function: percent
+      - status: okay
+
   gse_cluster_service:
     input_message_types:
       - afd_service_metric
@@ -13,19 +86,42 @@ lma_collector_contrail:
     interval: 10
     warm_up_period: 20
     clusters:
-      contrail-api:
+      nova-logs:
+        policy: highest_severity
+        group_by: hostname
+        members:
+          - error
+      heat-logs:
+        policy: highest_severity
+        group_by: hostname
+        members:
+          - error
+      mysql:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - node-status
+      nova-api:
         policy: highest_severity
         group_by: member
         members:
           - backends
           - endpoint
           - http_errors
-      contrail-logs:
+      cinder-api:
         policy: highest_severity
-        group_by: hostname
+        group_by: member
         members:
-          - error
-
+          - backends
+          - endpoint
+          - http_errors
+      swift-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - backends
+          - endpoint
+          - http_errors
 
   gse_cluster_node:
     input_message_types:
@@ -40,10 +136,167 @@ lma_collector_contrail:
     interval: 10
     warm_up_period: 80
     clusters:
+      contrail-node:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - cpu
+          - memory
+          - uptime
+          - root-fs
+          - swap
+          - net-if-errors
+          - processes
+          - load
+          - ntpd
+          - ntpd-drift
+          - ping-gw
+
+      contrail-control:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - contrail-control-nodemgr
+          - contrail-dns
+          - contrail-named
+          - contrail-webui
+          - contrail-webui-middleware
+          - contrail-database-nodemgr
+          - kafka
+          - haproxy
+          - check-api-contrail-8080
+          - check-api-contrail-8143
+          - check-api-contrail-8083
+
       contrail-config:
         policy: majority_of_members
         group_by: hostname
         members:
+          - contrail-alarm-gen
+          - contrail-analytics-api
+          - contrail-analytics-nodemgr
+          - contrail-collector
+          - contrail-query-engine
+          - contrail-snmp-collector
+          - contrail-topology
           - contrail-api
-          - contrail-logs
+          - contrail-config-nodemgr
+          - contrail-device-manager
+          - contrail-discovery
+          - contrail-schema
+          - contrail-svc-monitor
+          - ifmap
+          - ifmap-elements
+          - xmpp-sessions
+          - xmpp-sessions-status
+          - bgp-sessions
+          - check-api-contrail-8084
+          - check-api-contrail-9100
+          - check-api-contrail-9110
+          - check-api-contrail-5997
+          - check-api-contrail-8084
+          - check-api-contrail-9100
+          - check-api-contrail-8089
+          - check-api-contrail-9081
+          - check-api-contrail-8090
 
+      contrail-db:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - contraildb-fs
+          - cassandra
+          - zookeeper
+
+      controller:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - neutron-server
+          - memory
+          - uptime
+          - swap
+          - net-if-errors
+          - processes
+          - load
+          - ntpd
+          - ntpd-drift
+          - ping-gw
+
+      hypervisor:
+        policy: majority_of_members
+        group_by: hostname
+        members:
+          - cpu
+          - memory
+          - uptime
+          - swap
+          - net-if-errors
+          - processes
+          - load
+          - ntpd
+          - ntpd-drift
+          - libvirtd
+          - nova-compute
+          - haproxy
+          - contrail-vrouter-agent
+          - contrail-vrouter-nodemgr
+          - xmpp-sessions
+          - xmpp-dns-sessions
+          - vrouter-lls
+          - vrouter-openedsockets
+          - vrouter-flows-active
+          - vrouter-flows-created
+          - vrouter-flows-discard
+          - vrouter-flows-drop
+          - vrouter-flows-frag-err
+          - vrouter-flows-invalid-nh
+          - vrouter-flows-composite-invalid-interface
+          - vrouter-flows-invalid-label
+          - vrouter-flows-flow-queue-limit-exceeded
+          - vrouter-flow-full
+          - ping-gw
+
+
+  gse_cluster_global:
+    input_message_types:
+      - gse_service_cluster_metric
+      - gse_node_cluster_metric
+    aggregator_flag: false
+    # the field in the input messages to identify the cluster's member
+    member_field: cluster_name
+    output_message_type: gse_cluster_metric
+    output_metric_name: cluster_status
+    interval: 10
+    warm_up_period: 30
+    clusters:
+      contrail-node:
+        policy: highest_severity
+        group_by: member
+        members:
+          - contrail-node
+      contrail-control:
+        policy: highest_severity
+        group_by: member
+        members:
+          - contrail-control
+      contrail-config:
+        policy: highest_severity
+        group_by: member
+        members:
+          - contrail-config
+      contrail-db:
+        policy: highest_severity
+        group_by: member
+        members:
+          - contrail-db
+      controller:
+        policy: highest_severity
+        group_by: member
+        members:
+          - controller
+      hypervisor:
+        policy: highest_severity
+        group_by: member
+        members:
+          - hypervisor

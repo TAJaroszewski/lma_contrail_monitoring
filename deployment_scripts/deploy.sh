@@ -45,7 +45,7 @@ echo "Stage: BASE -> hiera"
 /usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/base.pp #--debug -v
 
 echo "Stage: INIT -> lma_contrail_monitoring"
-/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp #--debug -v
+/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp --debug -v
 
 service collectd restart
 service log_collector restart

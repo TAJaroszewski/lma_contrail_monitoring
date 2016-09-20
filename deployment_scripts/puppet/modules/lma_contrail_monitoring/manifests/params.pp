@@ -29,17 +29,20 @@ class lma_contrail_monitoring::params  {
   $collectd_contrail_dir = "${collectd::params::plugin_conf_dir}"
   $collectd_contrail_path = "${collectd::params::plugin_conf_dir}/${collectd_contrail_file}"
 
+  $env_id = hiera('deployment_id')
+
   $contrail_alarming_definition = 'contrail_alarming'
   $contrail_gse_filter_definition = 'contrail_gse_filters'
 
   $pacemaker_master_resource = 'vip__management'
 
-  $lma = hiera_hash('lma_collector_contrail', { })
+  $lma = hiera_hash('lma_collector', { })
   $lma_contrail = hiera_hash('lma_collector_contrail', { })
   $master_ip = hiera('master_ip')
   $network_metadata = hiera_hash('network_metadata')
   $lma_plugin_data = hiera_hash('lma_collector_contrail', undef)
   $lma_collector = hiera_hash('lma_collector_contrail', { })
+  $lma_collector_contrail = hiera_hash('lma_collector_contrail', { })
   $alarms_definitions = $lma['alarms']
   $alarms_definitions_contrail = $lma_contrail['alarms']
   $cluster_id = hiera('deployment_id')

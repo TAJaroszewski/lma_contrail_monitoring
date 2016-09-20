@@ -1726,7 +1726,7 @@ lma_collector_contrail:
         process: ['contrail-named']
 
   node_cluster_roles:
-      node: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db']
+      contrail-node: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db']
       contrail-config: ['primary-contrail-config', 'contrail-config']
       contrail-control: ['primary-contrail-control', 'contrail-control']
       contrail-db: ['primary-contrail-db', 'contrail-db']
@@ -1734,7 +1734,7 @@ lma_collector_contrail:
       hypervisor: ['compute']
 
   node_cluster_alarms:
-      node:
+      contrail-node:
         cpu: ['contrail-cpu-critical', 'contrail-cpu-warning']
         memory: ['contrail-memory-limit-critical', 'contrail-memory-limit-warning']
         uptime: ['system-uptime']

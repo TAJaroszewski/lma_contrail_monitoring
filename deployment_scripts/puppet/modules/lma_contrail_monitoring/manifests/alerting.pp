@@ -80,7 +80,7 @@ class lma_contrail_monitoring::alerting  (
     $role_key,
     $node_cluster_roles,
     $node_cluster_alarms)
-  $afd_service_defaults = { 'notifications_enabled' => 0 }
+  $afd_service_defaults = { 'notifications_enabled' => 1 }
   info "afd_services: $afd_services"
 
   create_resources(lma_infra_alerting::nagios::services, $afd_services, $afd_service_defaults)
