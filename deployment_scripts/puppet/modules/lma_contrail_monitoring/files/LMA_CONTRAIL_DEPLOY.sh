@@ -1,20 +1,21 @@
 #!/usr/bin/env sh
+
 set -x
 
 MODULE_PATH='/etc/puppet/modules:/etc/puppet/modules/lma_contrail_monitoring/modules'
-FILE="/usr/share/lma_collector/decoders/collectd.lua"
+COLLECTD_FILE="/usr/share/lma_collector/decoders/collectd.lua"
 
 # Pre-Tasks
 echo lma_contrail_monitoring > /tmp/lma_contrail_monitoring
 
 if [ -f ${FILE} ]; then
-	LUA_CHECK=$(grep -c lma-contrail-extension ${FILE})
+	LUA_CHECK=$(grep -c lma-contrail-extension ${COLLECTD_FILE})
 	if [ ${LUA_CHECK} -eq 0 ]; then
-		echo "BEFORE:"
-	    md5sum ${FILE}
-        	sed -i "/elseif metric_source == .mysql. then/i\            elseif sample['plugin_instance'] == 'lma-contrail-extension'\n\t\tthen msg['Fields']['name'] = sample['type_instance']" ${FILE}
-    	echo "AFTER:"
-	    md5sum ${FILE}
+		echo "MD5SUM OF ${COLLECTD_FILE} BEFORE CHANGE:"
+	    md5sum ${COLLECTD_FILE}
+        	sed -i "/elseif metric_source == .mysql. then/i\            elseif sample['plugin_instance'] == 'lma-contrail-extension'\n\t\tthen msg['Fields']['name'] = sample['type_instance']" ${COLLECTD_FILE}
+    	echo "MD5SUM OF ${COLLECTD_FILE} AFTER CHANGE:"
+	    md5sum ${COLLECTD_FILE}
 	fi
 fi
 
@@ -32,7 +33,7 @@ if [ -d /etc/fuel/plugins/lma_infrastructure_alerting-* ]; then
 	fi
 fi
 
-echo "Puppet -> Module PATCH: ${MODULE_PATH}"
+echo "Puppet -> Module PATH: ${MODULE_PATH}"
 
 LATEST_PLUGIN=$(ls /etc/fuel/plugins/lma_contrail_monitoring-*/puppet -d | head -1)
 MODULE_PATH=${MODULE_PATH}:${LATEST_PLUGIN}/modules/
@@ -47,9 +48,22 @@ echo "Stage: BASE -> hiera"
 echo "Stage: INIT -> lma_contrail_monitoring"
 /usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp #--debug -v
 
-service collectd restart
-service log_collector restart
-service metric_collector restart
+if [ -f /etc/init.d/collectd ]; then
+    service collectd restart
+fi
+if [ -f /etc/init/log_collector.conf ]; then
+    service log_collector restart
+fi
+if [ -f /etc/init/metric_collector.conf ]; then
+    service metric_collector restart
+fi
+
+if [ -f /usr/lib/ocf/resource.d/fuel/ocf-metric_collector ]; then
+    crm resource restart clone_metric_collector
+fi
+if [ -f /usr/lib/ocf/resource.d/fuel/ocf-log_collector ]; then
+    crm resource restart clone_log_collector
+fi
 
 exit 0
 

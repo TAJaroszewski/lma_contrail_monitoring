@@ -79,9 +79,12 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
   validate_bool($is_controller_node)
 
   if $is_controller_node {
-    validate_hash($process_matches_ops_controller)
-    lma_contrail_monitoring::collectd_processes { $process_matches_ops_controller:
-      process_hash => $process_matches_ops_controller
+    #validate_hash($process_matches_ops_controller)
+    #lma_contrail_monitoring::collectd_processes { $process_matches_ops_controller:
+    #  process_hash => $process_matches_ops_controller
+    #}
+    # Generate aggregator's /usr/share/lma_collector_modules/gse* files
+    class { 'lma_contrail_monitoring::aggregator':
     }
 
   }
@@ -156,6 +159,7 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
   info "Service Cluster Roles: $lma_contrail['service_cluster_roles']"
   info "Service Cluster Alarms: $lma_contrail['service_cluster_alarms']"
 
+
   # Apply new checks into client
   class { 'fuel_lma_collector::afds':
     roles                  => hiera('roles'),
@@ -176,6 +180,11 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
 
     $cluster_ip = hiera('lma::infrastructure_alerting::cluster_ip')
 
+    if ! is_ip_address($cluster_ip) {
+      warning("Cluster IP address is not valid [value: $cluster_ip]; Using '127.0.0.1'")
+      $cluster_ip = '127.0.0.1'
+    }
+
     class { 'lma_contrail_monitoring::hosts':
       hosts                  => values($network_metadata['nodes']),
       host_name_key          => 'name',
@@ -185,14 +194,6 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
       host_custom_vars_keys  => ['fqdn', 'node_roles'],
       node_cluster_roles     => $node_cluster_roles,
       node_cluster_alarms    => $node_cluster_alarms
-    }
-
-  }
-
-
-  # Generate aggregator's /usr/share/lma_collector_modules/gse* files
-  if $is_controller_node {
-    class { 'lma_contrail_monitoring::aggregator':
     }
 
   }
