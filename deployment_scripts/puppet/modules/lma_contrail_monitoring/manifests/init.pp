@@ -185,16 +185,25 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
       $cluster_ip = '127.0.0.1'
     }
 
+    # Generic Nagios Setup for alerts
     class { 'lma_contrail_monitoring::hosts':
-      hosts                  => values($network_metadata['nodes']),
-      host_name_key          => 'name',
-      network_role_key       => 'infrastructure_alerting',
-      role_key               => 'node_roles',
-      host_display_name_keys => ['name', 'user_node_name'],
-      host_custom_vars_keys  => ['fqdn', 'node_roles'],
-      node_cluster_roles     => $node_cluster_roles,
-      node_cluster_alarms    => $node_cluster_alarms
+      hosts                     => values($network_metadata['nodes']),
+      host_name_key             => 'name',
+      network_role_key          => 'infrastructure_alerting',
+      role_key                  => 'node_roles',
+      host_display_name_keys    => ['name', 'user_node_name'],
+      host_custom_vars_keys     => ['fqdn', 'node_roles'],
+      node_cluster_roles        => $node_cluster_roles,
+      node_cluster_alarms       => $node_cluster_alarms
     }
+    # Global Service Cluster Setup in Nagios
+    class { 'lma_infra_alerting::nagios::vhost':
+      openstack_deployment_name => $env_id,
+      openstack_management_vip  => $cluster_ip,
+      global_clusters           => $service_clusters,
+      node_clusters             => $node_clusters
+    }
+
 
   }
 
