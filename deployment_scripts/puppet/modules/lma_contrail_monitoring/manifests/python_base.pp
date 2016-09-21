@@ -16,7 +16,7 @@ notice('fuel-plugin-lma-contrail: python_base')
 
 class lma_contrail_monitoring::python_base {
   include collectd::params
-  include lma_collector::params
+  #include lma_collector::params
 
   # variable is exposed for classes/defines including that class
   $modulepath = $lma_collector::params::python_module_path

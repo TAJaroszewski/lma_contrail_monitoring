@@ -18,7 +18,7 @@ notice('fuel-plugin-lma-contrail: services')
 class lma_contrail_monitoring::services inherits lma_contrail_monitoring::params {
 
   include lma_collector::params
-  include lma_collector::collectd::python_base
+  #include lma_collector::collectd::python_base
 
   package { $lma_contrail_monitoring::params::collectd_package:
     ensure   => 'installed',

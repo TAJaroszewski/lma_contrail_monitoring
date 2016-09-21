@@ -96,7 +96,10 @@ class lma_contrail_monitoring::params  {
 
   $processes = []
   $process_matcher = []
-
+  
+  include nova::params
+  $nova           = hiera_hash('nova', { })
+  $management_vip  = hiera('management_vip')
 
   # Contrail settings
 

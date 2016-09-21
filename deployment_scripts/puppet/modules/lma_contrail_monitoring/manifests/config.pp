@@ -155,11 +155,19 @@ class lma_contrail_monitoring::config inherits lma_contrail_monitoring::params
   }
 
   $process_matcher_various = {
-    ntpd => { name => 'ntpd', regex => '/usr/sbin/ntpd -p /var/run/ntpd.pid' }
+    ntpd             => { name => 'ntpd', regex => '/usr/sbin/ntpd -p /var/run/ntpd.pid' },
+    collectd         => { name => 'collectd', regex => 'collectd -C /etc/collectd/collectd.conf -f' },
+    collectdmon      => { name => 'collectdmon', regex => '/usr/sbin/collectdmon -P /var/run/collectd.pid -- -C /etc/collectd/collectd.conf' },
+    metric_collector => { name => 'metric_collector', regex => '/usr/bin/hekad -config=/etc/metric_collector' },
+    log_collector    => { name => 'log_collector', regex => '/usr/bin/hekad -config=/etc/log_collector' },
+    heka             => { name => 'heka', regex => 'heka' },
   }
 
   $process_matches_ops_controller = {
-    neutron-server => { name => 'neutron-server', regex => '.+/usr/bin/neutron-server' }
+    neutron-server                    => { name => 'neutron-server', regex => '.+/usr/bin/neutron-server' },
+    nagios3                           => { name => 'nagios3', regex => '/usr/sbin/nagios3 -d /etc/nagios3/nagios.cfg' },
+    corosync                          => { name => "corosync", regex => '/usr/sbin/corosync' },
+    haproxy                           => { name => 'haproxy', regex => '/usr/sbin/haproxy' },
   }
 
   $network_services = {

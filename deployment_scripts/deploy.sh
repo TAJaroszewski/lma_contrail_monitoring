@@ -41,10 +41,10 @@ if ! [ -d ${LATEST_PLUGIN} ]; then
 fi
 
 echo "Stage: BASE -> hiera"
-/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/base.pp #--debug -v
+/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/base.pp --debug -v
 
 echo "Stage: INIT -> lma_contrail_monitoring"
-/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp #--debug -v
+/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp --debug -v
 
 if [ -f /etc/init.d/collectd ]; then
     service collectd restart
