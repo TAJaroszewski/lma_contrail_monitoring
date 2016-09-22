@@ -1718,12 +1718,63 @@ lma_collector_contrail:
 
 ## Mapping
   service_cluster_roles:
-      contrail-api: ['primary-contrail-config', 'contrail-config']
-      contrail-logs: ['primary-contrail-config ', 'contrail-config']
+      service-contrail-alarm-gen: ['primary-contrail-config', 'contrail-config']
+      service-contrail-analytics-api: ['primary-contrail-config', 'contrail-config']
+      service-contrail-analytics-nodemgr: ['primary-contrail-config', 'contrail-config']
+      service-contrail-collector: ['primary-contrail-config', 'contrail-config']
+      service-contrail-query-engine: ['primary-contrail-config', 'contrail-config']
+      service-contrail-snmp-collector: ['primary-contrail-config', 'contrail-config']
+      service-contrail-topology: ['primary-contrail-config', 'contrail-config']
+      service-contrail-api: ['primary-contrail-config', 'contrail-config']
+      service-contrail-config-nodemgr: ['primary-contrail-config', 'contrail-config']
+      service-contrail-device-manager: ['primary-contrail-config', 'contrail-config']
+      service-contrail-discovery: ['primary-contrail-config', 'contrail-config']
+      service-contrail-schema: ['primary-contrail-config', 'contrail-config']
+      service-contrail-svc-monitor: ['primary-contrail-config', 'contrail-config']
+      service-ifmap: ['primary-contrail-config', 'contrail-config']
+      service-cassandra: ['primary-contrail-db', 'contrail-db']
+      service-zookeeper: ['primary-contrail-db', 'contrail-db']
 
   service_cluster_alarms:
-      contrail-named:
-        process: ['contrail-named']
+      service-contrail-alarm-gen:
+        worker: ['contrail-alarm-gen']
+      service-contrail-analytics-api:
+        check-api-contrail-8090: ['check-api-contrail-8090-hi', 'check-api-contrail-8090-err']
+        worker: ['contrail-analytics-api']
+      service-contrail-analytics-nodemgr:
+        worker: ['contrail-analytics-nodemgr']
+      service-contrail-collector:
+        check-api-contrail-8086: ['check-api-contrail-8086-hi', 'check-api-contrail-8086-err']
+        check-api-contrail-8089: ['check-api-contrail-8089-hi', 'check-api-contrail-8089-err']
+        worker: ['contrail-collector']
+      service-contrail-query-engine:
+        worker: ['contrail-query-engine']
+      service-contrail-snmp-collector:
+        worker: ['contrail-snmp-collector']
+      service-contrail-topology:
+        worker: ['contrail-topology']
+      service-contrail-api:
+        check-api-contrail-8084: ['check-api-contrail-8084-hi', 'check-api-contrail-8084-err']
+        worker: ['contrail-api']
+      service-contrail-config-nodemgr:
+        worker: ['contrail-config-nodemgr']
+      service-contrail-device-manager:
+        worker: ['contrail-device-manager']
+      service-contrail-discovery:
+        check-api-contrail-9110: ['check-api-contrail-9110-hi', 'check-api-contrail-9110-err']
+        worker: ['contrail-discovery']
+      service-contrail-schema:
+        worker: ['contrail-schema']
+      service-contrail-svc-monitor:
+        worker: ['contrail-svc-monitor']
+      service-ifmap:
+        worker: ['ifmap']
+      service-cassandra:
+        worker: ['cassandra']
+      service-zookeeper:
+        worker: ['zookeeper']
+
+
 
   node_cluster_roles:
       contrail-node: ['primary-contrail-config', 'contrail-config', 'primary-contrail-control', 'contrail-control', 'primary-contrail-db', 'contrail-db']

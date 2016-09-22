@@ -62,6 +62,10 @@ fi
 if [ -f /usr/lib/ocf/resource.d/fuel/ocf-log_collector ]; then
     crm resource restart clone_log_collector
 fi
+if [ -f /usr/lib/ocf/resource.d/fuel/ocf-ns_nagios ]; then
+    crm resource restart nagios3
+fi
+
 
 exit 0
 

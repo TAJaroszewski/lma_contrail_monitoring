@@ -86,71 +86,131 @@ lma_collector_contrail:
     interval: 10
     warm_up_period: 20
     clusters:
-      contrail-alarm-gen:
+      service-contrail-alarm-gen:
+        policy: highest_severity
+        group_by: member
+        members:
+          - worker
+      service-contrail-analytics-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - check-api-contrail-8090
+          - worker
+      service-contrail-collector:
+        policy: highest_severity
+        group_by: member
+        members:
+          - check-api-contrail-8086
+          - check-api-contrail-8089
+          - worker
+      service-contrail-query-engine:
         policy: highest_severity
         group_by: member
         members:
           - workers
+      service-contrail-snmp-collector:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-contrail-topology:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-contrail-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - check-api-contrail-8084
+          - worker
+      service-contrail-config-nodemgr:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-contrail-device-manager:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-contrail-discovery:
+        policy: highest_severity
+        group_by: member
+        members:
+          - check-api-contrail-9110
+          - worker
+      service-contrail-schema:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-contrail-svc-monitor:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-ifmap:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-cassandra:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      service-zookeeper:
+        policy: highest_severity
+        group_by: member
+        members:
+          - workers
+      ###########
+      # HAPROXY #
+      ###########
       contrail-analytics-api:
         policy: highest_severity
         group_by: member
         members:
           - workers
-      contrail-analytics-nodemgr:
+          - endpoint
+          - backends
+      contrail-configuration-api:
         policy: highest_severity
         group_by: member
         members:
           - workers
-      contrail-collector:
+          - endpoint
+          - backends
+      contrail-configuration-api-public:
         policy: highest_severity
         group_by: member
         members:
           - workers
-      contrail-query-engine:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
-      contrail-snmp-collector:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
-      contrail-topology:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
-      contrail-api:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
-      contrail-config-nodemgr:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
-      contrail-device-manager:
-        policy: highest_severity
-        group_by: member
-        members:
-          - workers
+          - endpoint
+          - backends
       contrail-discovery:
         policy: highest_severity
         group_by: member
         members:
           - workers
-      contrail-schema:
+          - endpoint
+          - backends
+      contrail-webui:
         policy: highest_severity
         group_by: member
         members:
           - workers
-      contrail-svc-monitor:
+          - endpoint
+          - backends
+      contrail-rabbit:
         policy: highest_severity
         group_by: member
         members:
           - workers
+          - endpoint
+          - backends
 
   gse_cluster_node:
     input_message_types:
@@ -299,71 +359,115 @@ lma_collector_contrail:
     interval: 10
     warm_up_period: 30
     clusters:
-  ###################
-  # SERVICES STATUS #
-  ###################
-      contrail-alarm-gen:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-alarm-gen
+      ###########
+      # HAPROXY #
+      ###########
       contrail-analytics-api:
         policy: highest_severity
         group_by: member
         members:
           - contrail-analytics-api
-      contrail-analytics-nodemgr:
+      contrail-configuration-api:
         policy: highest_severity
         group_by: member
         members:
-          - contrail-analytics-nodemgr
-      contrail-collector:
+          - contrail-configuration-api
+      contrail-configuration-api-public:
         policy: highest_severity
         group_by: member
         members:
-          - contrail-collector
-      contrail-query-engine:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-query-engine
-      contrail-snmp-collector:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-snmp-collector
-      contrail-topology:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-topology
-      contrail-api:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-api
-      contrail-config-nodemgr:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-config-nodemgr
-      contrail-device-manager:
-        policy: highest_severity
-        group_by: member
-        members:
-          - contrail-device-manager
+          - contrail-configuration-api-public
       contrail-discovery:
         policy: highest_severity
         group_by: member
         members:
           - contrail-discovery
-      contrail-schema:
+      contrail-webui:
         policy: highest_severity
         group_by: member
         members:
-          - contrail-schema
-      contrail-svc-monitor:
+          - contrail-webui
+      contrail-rabbit:
         policy: highest_severity
         group_by: member
         members:
-          - contrail-svc-monitor
+          - contrail-rabbit
+      ###################
+      # SERVICES STATUS #
+      ###################
+      service-contrail-alarm-gen:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-alarm-gen
+      service-contrail-analytics-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-analytics-api
+      service-contrail-collector:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-collector
+      service-contrail-query-engine:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-query-engine
+      service-contrail-snmp-collector:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-snmp-collector
+      service-contrail-topology:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-topology
+      service-contrail-api:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-api
+      service-contrail-config-nodemgr:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-config-nodemgr
+      service-contrail-device-manager:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-device-manager
+      service-contrail-discovery:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-discovery
+      service-contrail-schema:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-schema
+      service-contrail-svc-monitor:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-contrail-svc-monitor
+      service-ifmap:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-ifmap
+      service-cassandra:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-cassandra
+      service-zookeeper:
+        policy: highest_severity
+        group_by: member
+        members:
+          - service-zookeeper
+
