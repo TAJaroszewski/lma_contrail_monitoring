@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+TABLE="contrail-control contrail-control-nodemgr contrail-dns contrail-named contrail-alarm-gen contrail-analytics-api contrail-analytics-nodemgr contrail-collector contrail-query-engine contrail-snmp-collector contrail-topology contrail-api contrail-config-nodemgr contrail-device-manager contrail-discovery contrail-schema contrail-svc-monitor ifmap contrail-webui contrail-webui-middleware contrail-database-nodemgr kafka contrail-vrouter-agent"
+
+for unit in ${TABLE}; do
+    PARSED_UNIT=$(echo ${unit} | tr "-" "_")
+    curl -G "<%= @influxdb_url %>/query" \
+    --data-urlencode "u=<%= @admin_user %>" \
+    --data-urlencode "p=<%= @admin_password %>" \
+    --data-urlencode "q=CREATE CONTINUOUS QUERY value_${PARSED_UNIT} on lma BEGIN SELECT mean(\"value\") as \"value\", environment_label INTO value_${PARSED_UNIT}_table FROM lma_components_processes WHERE \"service\" = '${unit}' GROUP BY time(1m), \"hostname\" FILL(previous) END"
+    curl -G "<%= @influxdb_url %>/query" \
+    --data-urlencode "u=<%= @admin_user %>" \
+    --data-urlencode "p=<%= @admin_password %>" \
+    --data-urlencode "q=CREATE CONTINUOUS QUERY sum_${PARSED_UNIT} on lma BEGIN SELECT sum(\"value\") as value, environment_label INTO sum_${PARSED_UNIT}_table FROM value_${PARSED_UNIT}_table GROUP BY time(1m) END"
+done
+

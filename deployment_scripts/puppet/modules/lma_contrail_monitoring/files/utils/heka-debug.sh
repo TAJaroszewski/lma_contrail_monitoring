@@ -4,7 +4,8 @@ echo "Please be aware that this file will became very large and.. it will be ver
 
 FILE_CHECK=$(grep -c RstEncoder /etc/metric_collector/global.toml)
 if [ ${FILE_CHECK} -eq 0 ]; then
-cat < EOF >> /etc/metric_collector/global.toml
+cp /etc/metric_collector/global.toml /etc/metric_collector/global.toml.bak
+cat << EOF >> /etc/metric_collector/global.toml
 [RstEncoder]
 [output_file]
 type = "FileOutput"

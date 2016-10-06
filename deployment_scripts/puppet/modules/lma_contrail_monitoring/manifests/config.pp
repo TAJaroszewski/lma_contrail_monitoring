@@ -183,5 +183,23 @@ class lma_contrail_monitoring::config inherits lma_contrail_monitoring::params
     nova-compute                      => { name => 'nova-compute', regex => '/usr/bin/python /usr/bin/nova-compute --config-file=/etc/nova/nova.conf' }
   }
 
+  # From https://github.com/apache/cassandra/tree/cassandra-2.1/src/java/org/apache/cassandra/metrics
+  $cassandra_collect = ["cassandra/native_clients","cassandra/thrift_clients","cassandra/clientrequest_read","cassandra/clientrequest_write","cassandra/endpoints","cassandra/compaction","cassandra/compaction_pending","cassandra/garbagecollector","cassandra/cmsoldgen","cassandra/cmspermgen","cassandra/cmspermgen","cassandra/headmemoryusage","cassandra/storageexceptioncount"]
+  $cassandra_hash = {
+    cassandra_cfstats          =>
+    {
+      name   => 'org.apache.cassandra.metrics', object_name => 'org.apache.cassandra.db:type=ColumnFamilies,*',
+      values => {
+        'connectedNativeClients' => {
+          type => 'Counter',
+          attribute => 'ReadCount'
+        },
+        'connectedThriftClients' => {
+          type => 'connectedThriftClients',
+          attribute => 'Value'
+        },
+      },
+    },
+  }
 
 }

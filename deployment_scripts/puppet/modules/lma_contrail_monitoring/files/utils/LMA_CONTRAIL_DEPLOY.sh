@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-set -x
-
 MODULE_PATH='/etc/puppet/modules:/etc/puppet/modules/lma_contrail_monitoring/modules'
 COLLECTD_FILE="/usr/share/lma_collector/decoders/collectd.lua"
 
@@ -43,10 +41,10 @@ if ! [ -d ${LATEST_PLUGIN} ]; then
 fi
 
 echo "Stage: BASE -> hiera"
-/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/base.pp #--debug -v
+/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/base.pp --debug -v
 
 echo "Stage: INIT -> lma_contrail_monitoring"
-/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp #--debug -v
+/usr/bin/puppet apply --modulepath=${MODULE_PATH} ${LATEST_PLUGIN}/manifests/init.pp --debug -v
 
 if [ -f /etc/init.d/collectd ]; then
     service collectd restart
@@ -64,6 +62,10 @@ fi
 if [ -f /usr/lib/ocf/resource.d/fuel/ocf-log_collector ]; then
     crm resource restart clone_log_collector
 fi
+if [ -f /usr/lib/ocf/resource.d/fuel/ocf-ns_nagios ]; then
+    crm resource restart nagios3
+fi
+
 
 exit 0
 

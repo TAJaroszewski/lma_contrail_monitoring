@@ -96,7 +96,7 @@ class lma_contrail_monitoring::params  {
 
   $processes = []
   $process_matcher = []
-  
+
   include nova::params
   $nova           = hiera_hash('nova', { })
   $management_vip  = hiera('management_vip')
@@ -133,5 +133,17 @@ class lma_contrail_monitoring::params  {
   $infra_contrail_db_nodes = count($contrail_db_nodes)
   validate_integer($infra_contrail_db_nodes)
 
+  # Cassandra
+  $jmx_host = '127.0.0.1'
+  $jmx_port = '7199'
+  $class_path = "/usr/share/collectd/java/collectd-api.jar:/usr/share/collectd/java/generic-jmx.jar"
+  $config_file = "${collectd_contrail_dir}/15-genericjmx.conf"
+
+  case $::osfamily {
+    'Debian': {
+      $collectd_default_file = "/etc/default/collectd"
+      $java_libjvm_dir = "/usr/lib/jvm/default-java/jre/lib/amd64/server/:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/"
+    }
+  }
 
 }

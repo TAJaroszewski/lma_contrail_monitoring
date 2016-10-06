@@ -73,6 +73,9 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
       process_hash => $process_matcher_supervisor_database
     }
 
+    class { 'lma_contrail_monitoring::collectd_cassandra' :
+    }
+
   }
 
   # Contrail Controller Node
@@ -207,4 +210,9 @@ class lma_contrail_monitoring inherits lma_contrail_monitoring::config
 
   }
 
+  if $is_influxdb_grafana {
+    class { 'lma_contrail_monitoring::grafana':
+
+    }
+  }
 }
