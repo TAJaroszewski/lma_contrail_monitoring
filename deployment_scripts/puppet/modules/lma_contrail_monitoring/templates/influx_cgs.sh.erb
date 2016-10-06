@@ -6,10 +6,10 @@ for unit in ${TABLE}; do
     curl -G "<%= @influxdb_url %>/query" \
     --data-urlencode "u=<%= @admin_user %>" \
     --data-urlencode "p=<%= @admin_password %>" \
-    --data-urlencode "q=CREATE CONTINUOUS QUERY value_${PARSED_UNIT} on lma BEGIN SELECT mean(\"value\") as \"value\", environment_label INTO value_${PARSED_UNIT}_table FROM lma_components_processes WHERE \"service\" = '${unit}' GROUP BY time(1m), \"hostname\" FILL(previous) END"
+    --data-urlencode "q=CREATE CONTINUOUS QUERY value_${PARSED_UNIT} on lma BEGIN SELECT mean(\"value\") as \"value\" INTO value_${PARSED_UNIT}_table FROM lma_components_processes WHERE \"service\" = '${unit}' GROUP BY time(1m), \"hostname\" FILL(previous) END"
     curl -G "<%= @influxdb_url %>/query" \
     --data-urlencode "u=<%= @admin_user %>" \
     --data-urlencode "p=<%= @admin_password %>" \
-    --data-urlencode "q=CREATE CONTINUOUS QUERY sum_${PARSED_UNIT} on lma BEGIN SELECT sum(\"value\") as value, environment_label INTO sum_${PARSED_UNIT}_table FROM value_${PARSED_UNIT}_table GROUP BY time(1m) END"
+    --data-urlencode "q=CREATE CONTINUOUS QUERY sum_${PARSED_UNIT} on lma BEGIN SELECT sum(\"value\") as value INTO sum_${PARSED_UNIT}_table FROM value_${PARSED_UNIT}_table GROUP BY time(1m) END"
 done
 
