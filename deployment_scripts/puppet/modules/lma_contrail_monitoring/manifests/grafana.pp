@@ -36,10 +36,10 @@ class lma_contrail_monitoring::grafana (
   }
 
   $dashboards = {
-    'SDN_Contrail' => {
+    'SDN_Contrail'  => {
       content => template('lma_contrail_monitoring/SDN_Contrail_Dashboard.json.erb'),
     },
-    'Contrail' => {
+    'Cassandra'     => {
       content => template('lma_contrail_monitoring/Cassandra_Dashboard.json.erb')
     }
   }
@@ -61,10 +61,10 @@ class lma_contrail_monitoring::grafana (
     require => File[$influx_cgs_create],
   }
 
-#  exec { "remove_${influx_cgs_create}":
-#    command => "/bin/rm -f ${influx_cgs_create}",
-#    require => Exec["run_${influx_cgs_create}"],
-#  }
+  #  exec { "remove_${influx_cgs_create}":
+  #    command => "/bin/rm -f ${influx_cgs_create}",
+  #    require => Exec["run_${influx_cgs_create}"],
+  #  }
 
 
 }
