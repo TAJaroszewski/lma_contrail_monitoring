@@ -184,7 +184,7 @@ class lma_contrail_monitoring::config inherits lma_contrail_monitoring::params
   }
 
   # From https://github.com/apache/cassandra/tree/cassandra-2.1/src/java/org/apache/cassandra/metrics
-  $cassandra_collect = ["cassandra/native_clients","cassandra/thrift_clients","cassandra/clientrequest_read","cassandra/clientrequest_write","cassandra/endpoints","cassandra/compaction","cassandra/compaction_pending","cassandra/garbagecollector","cassandra/cmsoldgen","cassandra/cmspermgen","cassandra/cmspermgen","cassandra/headmemoryusage","cassandra/storageexceptioncount"]
+  $cassandra_collect = ["cassandra/native_clients","cassandra/thrift_clients","cassandra/clientrequest_read","cassandra/clientrequest_write","cassandra/endpoints","cassandra/compaction","cassandra/compaction_pending","cassandra/garbagecollector","cassandra/cmsoldgen","cassandra/cmspermgen","cassandra/cmspermgen","cassandra/headmemoryusage","cassandra/storageexceptioncount", "cassandra/storageload"]
   $cassandra_hash = {
     cassandra_cfstats          =>
     {

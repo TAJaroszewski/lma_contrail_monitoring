@@ -10,79 +10,12 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "Cassandra Endpoints UP",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 7,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "UpEndpointCount"
-            }
-          ],
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": ">90s",
           "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "1,3",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -90,177 +23,244 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
             "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 7,
+          "interval": ">90s",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": false
           },
-          "gauge": {
-            "show": false,
-            "minValue": 0,
-            "maxValue": 100,
-            "thresholdMarkers": true,
-            "thresholdLabels": false
-          }
-        },
-        {
-          "title": "Endpoint UP/DOWN",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 9,
           "targets": [
             {
-              "policy": "default",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
               ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
               "measurement": "UpEndpointCount",
-              "alias": "Endpoint UP ($tag_hostname)"
-            },
-            {
               "policy": "default",
-              "dsType": "influxdb",
+              "refId": "A",
               "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "mean",
-                    "params": []
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
-              "refId": "B",
-              "measurement": "DownEndpointCount",
-              "alias": "Endpoint DOWN ($tag_hostname)"
+              "tags": []
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
+          "thresholds": "1,3",
+          "title": "Cassandra Endpoints UP",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
             {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 8,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Endpoint UP ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "UpEndpointCount",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
             },
             {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
+              "alias": "Endpoint DOWN ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "DownEndpointCount",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Endpoint UP/DOWN",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "xaxis": {
             "show": true
           },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": ">90s",
-          "links": []
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
       "collapse": false,
@@ -268,1273 +268,1385 @@
       "height": "250px",
       "panels": [
         {
-          "title": "Cassandra: Native Clients",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 1,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "connectedNativeClients",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
           "aliasColors": {
             "connectedNativeClients.mean": "#70DBED"
           },
-          "seriesOverrides": [],
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
-          "interval": ">90s"
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "connectedNativeClients",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Cassandra: Native Clients",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         },
         {
-          "title": "Cassandra: Thrift Clients",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 2,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "connectedThriftClients",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
           "aliasColors": {
             "connectedNativeClients.mean": "#70DBED"
           },
-          "seriesOverrides": [],
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
-          "interval": ">90s"
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "connectedThriftClients",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Cassandra: Thrift Clients",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         }
       ],
       "title": "Row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "Client Requests: Read",
-          "error": false,
-          "span": 12,
+          "aliasColors": {
+            "(node-11)": "#C15C17",
+            "(node-8)": "#967302"
+          },
+          "bars": false,
+          "datasource": null,
           "editable": true,
-          "type": "graph",
-          "isNew": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 3,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "clientRequest_Read_Mean",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {
-            "(node-8)": "#967302",
-            "(node-11)": "#C15C17"
-          },
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 90s"
-        },
-        {
-          "title": "Client Requests: Read 50thPercentile",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
+          "interval": "> 90s",
           "isNew": true,
-          "id": 4,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "clientRequest_Read_50thPercentile",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {
-            "(node-8)": "#967302",
-            "(node-11)": "#C15C17"
-          },
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 90s"
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Client Requests: Writes",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 5,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "clientRequest_Write_Mean",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {
-            "(node-8)": "#967302",
-            "(node-11)": "#C15C17"
-          },
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 90s"
-        },
-        {
-          "title": "Client Requests: Write 50th Percentile",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 6,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "clientRequest_Write_50thPercentile",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {
-            "(node-8)": "#967302",
-            "(node-11)": "#C15C17"
-          },
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 90s"
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Cassandra Compaction Engine",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "isNew": true,
-          "id": 10,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "CompactionCompletedTasks",
-              "alias": "Completed Tasks ($tag_hostname)"
-            },
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "B",
-              "measurement": "CompactionPendingTasks",
-              "alias": "Pending Tasks ($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
             "avg": false,
-            "alignAsTable": true
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
           },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "clientRequest_Read_Mean",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
           "timeFrom": null,
           "timeShift": null,
-          "aliasColors": {},
-          "seriesOverrides": [],
+          "title": "Client Requests: Read",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {
+            "(node-11)": "#C15C17",
+            "(node-8)": "#967302"
+          },
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "interval": "> 90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
-          "interval": ">90s"
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "clientRequest_Read_50thPercentile",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Client Requests: Read 50thPercentile",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "CMS",
-          "error": false,
-          "span": 12,
+          "aliasColors": {
+            "(node-11)": "#C15C17",
+            "(node-8)": "#967302"
+          },
+          "bars": false,
+          "datasource": null,
           "editable": true,
-          "type": "graph",
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 5,
+          "interval": "> 90s",
           "isNew": true,
-          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "policy": "default",
+              "alias": "($tag_hostname)",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "tag",
                   "params": [
                     "hostname"
-                  ]
+                  ],
+                  "type": "tag"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
               ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
+              "measurement": "clientRequest_Write_Mean",
+              "policy": "default",
               "refId": "A",
-              "measurement": "CMSOldGen",
-              "alias": "OldGen ($tag_hostname)"
-            },
-            {
-              "policy": "default",
-              "dsType": "influxdb",
               "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "mean",
-                    "params": []
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
-              "refId": "B",
-              "measurement": "CMSPermGen",
-              "alias": "PermGen ($tag_hostname)"
+              "tags": []
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Client Requests: Writes",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
           "xaxis": {
             "show": true
           },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": ">90s",
-          "links": []
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         },
         {
-          "title": "Cassandra Heap Usage",
-          "error": false,
-          "span": 12,
+          "aliasColors": {
+            "(node-11)": "#C15C17",
+            "(node-8)": "#967302"
+          },
+          "bars": false,
+          "datasource": null,
           "editable": true,
-          "type": "graph",
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 6,
+          "interval": "> 90s",
           "isNew": true,
-          "id": 12,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "policy": "default",
+              "alias": "($tag_hostname)",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "tag",
                   "params": [
                     "hostname"
-                  ]
+                  ],
+                  "type": "tag"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
               ],
+              "measurement": "clientRequest_Write_50thPercentile",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "mean",
-                    "params": []
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
-              "refId": "A",
-              "measurement": "memory-heap_usage_max",
-              "alias": "Heap usage max ($tag_hostname)",
-              "query": "SELECT mean(\"value\") FROM \"memory-heap_usage_max\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(null)",
-              "rawQuery": false
+              "tags": []
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "bytes"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
           "timeFrom": null,
           "timeShift": null,
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": ">90s",
-          "links": []
-        },
-        {
-          "title": "Storage Exceptions",
-          "error": false,
-          "span": 12,
-          "editable": true,
+          "title": "Client Requests: Write 50th Percentile",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
-          "isNew": true,
-          "id": 13,
-          "targets": [
-            {
-              "policy": "default",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "hostname"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "refId": "A",
-              "measurement": "StorageExceptionCount",
-              "alias": "($tag_hostname)"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "yaxes": [
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": 0,
-              "max": null,
-              "format": "short"
-            },
-            {
-              "label": null,
-              "show": true,
-              "logBase": 1,
-              "min": null,
-              "max": null,
-              "format": "short"
-            }
-          ],
           "xaxis": {
             "show": true
           },
-          "grid": {
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": false
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
         }
-      ]
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 10,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Completed Tasks ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "CompactionCompletedTasks",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "Pending Tasks ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "CompactionPendingTasks",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Cassandra Compaction Engine",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 14,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "StorageDBLoad",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Storage Load",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 13,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "StorageExceptionCount",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Storage Exceptions",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 12,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Heap usage max ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "memory-heap_usage_max",
+              "policy": "default",
+              "query": "SELECT mean(\"value\") FROM \"memory-heap_usage_max\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Cassandra Heap Usage",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 11,
+          "interval": ">90s",
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "OldGen ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "CMSOldGen",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "PermGen ($tag_hostname)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "CMSPermGen",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CMS",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "New row"
     }
   ],
   "time": {
@@ -1573,6 +1685,6 @@
     "list": []
   },
   "schemaVersion": 12,
-  "version": 6,
+  "version": 7,
   "links": []
 }

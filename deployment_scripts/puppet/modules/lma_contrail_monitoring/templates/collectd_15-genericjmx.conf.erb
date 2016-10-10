@@ -168,10 +168,19 @@
    </MBean>
    <MBean "cassandra/storageexceptioncount">
      ObjectName "org.apache.cassandra.metrics:type=Storage,name=Exceptions"
-     <Value>
-      Attribute "Count"
-      Type "gauge"
-      Table false
-      InstancePrefix "StorageExceptionCount"
-    </Value>
+      <Value>
+       Attribute "Count"
+       Type "gauge"
+       Table false
+       InstancePrefix "StorageExceptionCount"
+     </Value>
+   </MBean>
+   <MBean "cassandra/storageload">
+     ObjectName "org.apache.cassandra.db:type=StorageService"
+      <Value>
+        Attribute "Load"
+        Type "gauge"
+        Table false
+        InstancePrefix "StorageDBLoad"
+      </Value>
    </MBean>
