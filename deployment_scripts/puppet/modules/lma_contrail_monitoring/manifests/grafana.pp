@@ -45,7 +45,7 @@ class lma_contrail_monitoring::grafana (
   }
 
   create_resources(
-    grafana_dashboard, merge($dashboards), $dashboard_defaults
+    grafana_dashboard, $dashboards, $dashboard_defaults
   )
 
   # Create CGs
@@ -61,10 +61,10 @@ class lma_contrail_monitoring::grafana (
     require => File[$influx_cgs_create],
   }
 
-  #  exec { "remove_${influx_cgs_create}":
-  #    command => "/bin/rm -f ${influx_cgs_create}",
-  #    require => Exec["run_${influx_cgs_create}"],
-  #  }
+  exec { "remove_${influx_cgs_create}":
+    command => "/bin/rm -f ${influx_cgs_create}",
+    require => Exec["run_${influx_cgs_create}"],
+  }
 
 
 }
