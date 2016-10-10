@@ -38,11 +38,14 @@ class lma_contrail_monitoring::grafana (
   $dashboards = {
     'SDN_Contrail' => {
       content => template('lma_contrail_monitoring/SDN_Contrail_Dashboard.json.erb'),
+    },
+    'Contrail' => {
+      content => template('lma_contrail_monitoring/Cassandra_Dashboard.json.erb')
     }
   }
 
   create_resources(
-    grafana_dashboard, $dashboards, $dashboard_defaults
+    grafana_dashboard, merge($dashboards), $dashboard_defaults
   )
 
   # Create CGs
